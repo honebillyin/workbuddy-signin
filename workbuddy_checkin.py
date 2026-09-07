@@ -26,7 +26,7 @@ import time
 import urllib.request
 import urllib.error
 
-ENDPOINT = os.environ.get("WORKBUDDY_ENDPOINT", "https://copilot.tencent.com").rstrip("/")
+ENDPOINT = (os.environ.get("WORKBUDDY_ENDPOINT") or "https://copilot.tencent.com").rstrip("/")
 WARN_DAYS = int(os.environ.get("WORKBUDDY_TOKEN_WARN_DAYS", "2") or "2")
 
 
