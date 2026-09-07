@@ -1,0 +1,27 @@
+name: WorkBuddy Daily Checkin
+
+on:
+  schedule:
+    # 北京时间 08:30 对应 UTC 00:30
+    - cron: "30 0 * * *"
+  workflow_dispatch:
+
+jobs:
+  checkin:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run WorkBuddy checkin
+        env:
+          WORKBUDDY: ${{ secrets.WORKBUDDY }}
+          WORKBUDDY_ENDPOINT: ${{ secrets.WORKBUDDY_ENDPOINT }}
+          WORKBUDDY_TOKEN_WARN_DAYS: ${{ secrets.WORKBUDDY_TOKEN_WARN_DAYS }}
+        run: python workbuddy_checkin.py
